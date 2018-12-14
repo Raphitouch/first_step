@@ -1,8 +1,18 @@
-//
-// Created by cs on 12/13/18.
-//
+using namespace std;
+/*Lexer module:read from file the script to pass to Parser module*/
+#ifndef LEXER_H
+#define LEXER_H
 
-#ifndef FIRST_STEP_LEXER_H
-#define FIRST_STEP_LEXER_H
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <stdexcept>
 
-#endif //FIRST_STEP_LEXER_H
+class Lexer{
+    //private:
+
+    public:
+        string* lex(const string &  fileName);
+};
+
+#endif //LEXER_H
