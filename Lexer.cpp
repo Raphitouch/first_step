@@ -1,23 +1,64 @@
 /*Lexer- lex function implemenataion:*/
 #include "Lexer.h"
+/*getter:*/
+int Lexer::getNum() {
+    return num;
+}
+/*return the string array with the commands:*/
 string* Lexer::lex(const string & fileName) {
     string* commands;
     string line;
-    int numOfLines = 0;
+    int index = 0;
     ifstream file(fileName);
-    if (file.is_open()){
+    if(file.is_open()){
         //getting number of strings to be lexed:
-        while (getline(file,line)){
-            numOfLines++;
+        while(getline(file,line)){
+            while(line.size() > 0){
+                if(line[0] != ' '){
+                    if(line.find(" ") == string::npos){
+                        index++;
+                        break;
+                    }
+                    else{
+                        line = line.substr(line.find(" "));
+                        index++;
+                    }
+                }
+                else{
+                    if(line.size() == 1)
+                        break;
+                    line = line.substr(1);
+                }
+            }
         }
+        //rewind file:
         file.clear();
         file.seekg(0);
-        commands = new string[numOfLines];
-        numOfLines = 0;
-        while (getline(file,line)){
-            commands[numOfLines] = line;
-            numOfLines++;
+        commands = new string[index];
+        index = 0;
+        //putting the commands in the new string array:
+        while(getline(file,line)){
+            while(line.size() > 0){
+                if(line[0] != ' '){
+                    if(line.find(" ") == string::npos){
+                        commands[index] = line;
+                        index++;
+                        break;
+                    }
+                    else{
+                        commands[index] = line.substr(0,line.find(" "));
+                        line = line.substr(line.find(" "));
+                        index++;
+                    }
+                }
+                else{
+                    if(line.size() == 1)
+                        break;
+                    line = line.substr(1);
+                }
+            }
         }
+        this->num = index;
         file.close();
     }
     else throw invalid_argument("File cannot be opened!");

@@ -1,4 +1,4 @@
-#include "Command.h"
+#include "command.h"
 
 #ifndef FIRST_STEP_DEFINEVARCOMMAND_H
 #define FIRST_STEP_DEFINEVARCOMMAND_H
