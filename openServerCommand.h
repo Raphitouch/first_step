@@ -1,4 +1,4 @@
-#include "command.h"
+#include "Command.h"
 
 #ifndef FIRST_STEP_OPENSERVERCOMMAND_H
 #define FIRST_STEP_OPENSERVERCOMMAND_H

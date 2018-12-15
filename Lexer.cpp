@@ -1,15 +1,19 @@
 /*Lexer- lex function implemenataion:*/
 #include "Lexer.h"
+/*constructor that saves the file name in member:*/
+Lexer::Lexer(string fileName) {
+    this->fileName = fileName;
+}
 /*getter:*/
 int Lexer::getNum() {
     return num;
 }
 /*return the string array with the commands:*/
-string* Lexer::lex(const string & fileName) {
+string* Lexer::lex() {
     string* commands;
     string line;
     int index = 0;
-    ifstream file(fileName);
+    ifstream file(this->fileName);
     if(file.is_open()){
         //getting number of strings to be lexed:
         while(getline(file,line)){

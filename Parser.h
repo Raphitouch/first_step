@@ -5,10 +5,9 @@
 #define Parser_H
 
 #include "Lexer.h"
-#include "command.h"
+#include "Command.h"
 #include <map>
 #include <stdexcept>
-#include "command.h"
 
 class Parser{
     private:
@@ -16,7 +15,7 @@ class Parser{
         string* commands;//we get from lexer
         map<string,Command> StrToCommand;//map of all commands avaliable from their string to actual object.
     public:
-        Parser(string* commands);
+        Parser(Lexer* lexer);
         ~Parser();
         void parse();
 };

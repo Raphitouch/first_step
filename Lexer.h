@@ -10,9 +10,11 @@ using namespace std;
 
 class Lexer{
 private:
+    string fileName;//to get the script from
     int num;//the length of the string array lexed
 public:
-    string* lex(const string &  fileName);
+    Lexer(string fileName);
+    string* lex();
     int getNum();
 };
 
