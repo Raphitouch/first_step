@@ -1,3 +1,6 @@
+#include <thread>
+#include <mutex>
+#include <chrono>
 #include "Command.h"
 
 #ifndef FIRST_STEP_OPENSERVERCOMMAND_H
@@ -12,7 +15,7 @@ class openServerCommand : public Command {
 
 public:
     openServerCommand(std::map<std::string, double> *symbolTable, std::map<std::string,std::string> *varAddresses);
-    virtual int execute(std::string order[]);
+    virtual int execute(std::string order[], std::mutex m);
 };
 
 #endif //FIRST_STEP_OPENSERVERCOMMAND_H
