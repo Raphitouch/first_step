@@ -7,17 +7,60 @@
  * will be mapped to Null object.*/
 Parser::Parser(Lexer* lexer) {
     this->commands = lexer->lex();
-    this->index = lexer->getNum();
+    this->arraySize = lexer->getNum();
+    Command* osc = new openServerCommand();
+    Command* cc = new connectCommand();
+    Command* ecOnly = new equalCommand();
+    Command* vcWithOrWithoutec = new varCommand();
+    Command* cpIf = new conditionParser();
+    Command* cpWhile = new conditionParser();
+    Command* pc = new printCommand();
+    //...add Expression
+    this->StrToCommand.insert({"openDataServer",osc});
+    this->StrToCommand.insert({"connect",cc});
+    this->StrToCommand.insert({"=",ecOnly});
+    this->StrToCommand.insert({"var",vcWithOrWithoutec});
+    this->StrToCommand.insert({"if",cpIf});
+    this->StrToCommand.insert({"while",cpWhile});
+    this->StrToCommand.insert({"print",pc});
 }
 /*the parse method will go to the current index(member of Parse class) and will get the current command
  * from the member string array in that index. it will add to the index for the next command acoordingly
  * we get the adding to the index from the execution command that will be invoked.
  * if the command is not valid(object is null we will throw exception).*/
 void Parser::parse() {
-
+    while(this->index < this->commands->size()){//check for commands:
+        string str = this->commands[this->index];
+        map<string,Command*>::iterator it;
+        it = this->StrToCommand.find(str);
+        Command c;
+        if(it != this->StrToCommand.end()){
+            c = *(it->second);
+            this->index += c.execute(this->commands,this->index);
+        }
+        else{//check for rest commands: invalid command or = command
+            if(this->index +1 >= this->commands->size() || this->commands[this->index +1].compare("=") != 0){
+                throw invalid_argument("not a valid command!");
+            }
+            else{//its = command
+                it = this->StrToCommand.find("=");
+                c = *(it->second);
+                this->index += c.execute(this->commands,this->index);
+            }
+        }
+    }
+}
+/* getters:*/
+map<string,double> Parser::getSymbolTable() {
+    return this->symbolTable;
+}
+map<string,string> Parser::getVarBind() {
+    return this->varBind;
 }
 /*destructor for cleaning memory:*/
 Parser::~Parser() {
     delete[] this->commands;
     this->StrToCommand.clear();
+    this->symbolTable.clear();
+    this->varBind.clear();
 }

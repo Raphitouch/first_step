@@ -7,7 +7,7 @@
 class loopCommand : public conditionParser {
 
 public:
-    virtual int execute(std::string order[]);
+    int execute(string* order,int currentIndex);
 };
 
 

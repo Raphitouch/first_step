@@ -4,10 +4,10 @@
 #define FIRST_STEP_IFCOMAND_H
 
 /** For sample condition we call to this class **/
-class ifComand : public conditionParser {
+class ifCommand : public conditionParser {
 
 public:
-    virtual int execute(std::string order[]);
+    int execute(string* order,int currentIndex);
 };
 
 #endif //FIRST_STEP_IFCOMAND_H

@@ -5,19 +5,28 @@
 #define Parser_H
 
 #include "Lexer.h"
-#include "Command.h"
 #include <map>
 #include <stdexcept>
-
+#include "openServerCommand.h"
+#include "varCommand.h"
+#include "printCommand.h"
+#include "loopCommand.h"
+#include "ifCommand.h"
+#include "connectCommand.h"
 class Parser{
-    private:
-        int index = 0;//start reading from here
-        string* commands;//we get from lexer
-        map<string,Command> StrToCommand;//map of all commands avaliable from their string to actual object.
-    public:
-        Parser(Lexer* lexer);
-        ~Parser();
-        void parse();
+private:
+    int arraySize;//the size of array from the lexer
+    int index = 0;//start reading from here
+    string* commands;//we get from lexer
+    map<string,double> symbolTable;//all the varibales with their values; 0 for default(without set)
+    map<string,string> varBind;//all the bound variables with their address in the simulator
+    map<string,Command*> StrToCommand;//map of all commands avaliable from their string to actual object.
+public:
+    Parser(Lexer* lexer);
+    ~Parser();
+    void parse();
+    map<string,string> getVarBind();
+    map<string,double> getSymbolTable();
 };
 
 
