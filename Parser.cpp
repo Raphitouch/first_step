@@ -1,3 +1,4 @@
+using namespace std;
 #include "Parser.h"
 /*implementation for Parser header:*/
 
@@ -8,13 +9,13 @@
 Parser::Parser(Lexer* lexer) {
     this->commands = lexer->lex();
     this->arraySize = lexer->getNum();
-    Command* osc = new openServerCommand();
-    Command* cc = new connectCommand();
-    Command* ecOnly = new equalCommand();
-    Command* vcWithOrWithoutec = new varCommand();
-    Command* cpIf = new conditionParser();
-    Command* cpWhile = new conditionParser();
-    Command* pc = new printCommand();
+    Command* osc = new openServerCommand(&varBind,&symbolTable);
+    Command* cc = new connectCommand(&varBind,&symbolTable);
+    Command* ecOnly = new equalCommand(&varBind,&symbolTable);
+    Command* vcWithOrWithoutec = new varCommand(&varBind,&symbolTable);
+    Command* cpIf = new conditionParser(&symbolTable);
+    Command* cpWhile = new conditionParser(&symbolTable);
+    Command* pc = new printCommand(&symbolTable);
     //...add Expression
     this->StrToCommand.insert({"openDataServer",osc});
     this->StrToCommand.insert({"connect",cc});
@@ -33,10 +34,10 @@ void Parser::parse() {
         string str = this->commands[this->index];
         map<string,Command*>::iterator it;
         it = this->StrToCommand.find(str);
-        Command c;
+        Command* c;
         if(it != this->StrToCommand.end()){
-            c = *(it->second);
-            this->index += c.execute(this->commands,this->index);
+            c = it->second;
+            this->index += c->execute(this->commands,this->index);
         }
         else{//check for rest commands: invalid command or = command
             if(this->index +1 >= this->commands->size() || this->commands[this->index +1].compare("=") != 0){
@@ -44,8 +45,8 @@ void Parser::parse() {
             }
             else{//its = command
                 it = this->StrToCommand.find("=");
-                c = *(it->second);
-                this->index += c.execute(this->commands,this->index);
+                c = it->second;
+                this->index += c->execute(this->commands,this->index);
             }
         }
     }

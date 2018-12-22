@@ -6,11 +6,13 @@
 /** Condition Parser is parent class for both If and Loop **/
 class conditionParser : public Command {
 private:
-    list<Command*> commands; //List of commands we need to execute in case condition is true
+    std::map<std::string,double>* m_symbolTable;//all the varibales with their values; 0 for default(without set)
+    std::list<Command*> commands; //List of commands we need to execute in case condition is true
 
 public:
-    virtual int execute(string* order,int currentIndex);
-    virtual ~conditionParser();
+    conditionParser(std::map<std::string,double>* symbolTable);
+    virtual int execute(std::string* commands,int startIndex);
+    virtual ~conditionParser(){}
 };
 
 #endif //FIRST_STEP_CONDITIONPARSER_H

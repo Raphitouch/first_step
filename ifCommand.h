@@ -5,9 +5,9 @@
 
 /** For sample condition we call to this class **/
 class ifCommand : public conditionParser {
-
 public:
-    int execute(string* order,int currentIndex);
+    ifCommand(std::map<std::string,double>* symbolTable);
+    int execute(std::string* order,int startIndex);
 };
 
 #endif //FIRST_STEP_IFCOMAND_H

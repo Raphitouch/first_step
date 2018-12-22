@@ -1,4 +1,3 @@
-using namespace std;
 /*Lexer module:read from file the script to pass to Parser module*/
 #ifndef LEXER_H
 #define LEXER_H
@@ -10,11 +9,11 @@ using namespace std;
 
 class Lexer{
 private:
-    string fileName;//to get the script from
+    std::string fileName;//to get the script from
     int num;//the length of the string array lexed
 public:
-    Lexer(string fileName);
-    string* lex();
+    Lexer(std::string fileName);
+    std::string* lex();
     int getNum();
 };
 

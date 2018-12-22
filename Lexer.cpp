@@ -1,3 +1,4 @@
+using namespace std;
 /*Lexer- lex function implemenataion:*/
 #include "Lexer.h"
 /*constructor that saves the file name in member:*/
