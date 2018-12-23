@@ -1,10 +1,10 @@
-#ifndef FIRST_STEP_INTERFACE_H
-#define FIRST_STEP_INTERFACE_H
+#ifndef INTERFACE_H
+#define INTERFACE_H
 
 #include <string>
 #include <map>
 #include <list>
-
+#include <stdexcept>
 /** Abstract class Command **/
 class Command{
 public:
@@ -13,4 +13,4 @@ public:
     virtual ~Command(){}
 };
 
-#endif //FIRST_STEP_INTERFACE_H
+#endif //INTERFACE_H

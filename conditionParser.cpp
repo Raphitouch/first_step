@@ -11,12 +11,13 @@ int conditionParser::execute(string *commands, int startIndex) {
     startIndex ++;//advance to the boolean expression
     int constBooleanStartIndex = startIndex;//place where boolean starts
     int dummyAddToIndex = addToIndex;
-    Expression* exp = new Expression(&m_symbolTable);
-    bool pass = exp->boolEvaluate(commands,startIndex,&addToIndex);
+    ShuntingYard* sh = new ShuntingYard(m_symbolTable);
+    Expression* exp = sh->getExpression(commands,startIndex,&addToIndex);
+    double pass = exp->calculate();
     startIndex += addToIndex;//gets startIndex one after '{'
     addToIndex ++;//represnting number of addes to get one after '{'
     int firstStartIndex = startIndex;//for while loop
-    if(pass){
+    if(pass == 1.0){
         /*making list of commands until '}'*/
         //making commands and executing once. will be executed more if the boolean in while keep equaling true.
         Command* c;
@@ -57,11 +58,15 @@ int conditionParser::execute(string *commands, int startIndex) {
         }
         addToIndex ++;//getting after '}'
         if(m_isWhile){
-            while(exp->boolEvaluate(commands,constBooleanStartIndex,&dummyAddToIndex)){//check if boolen is true for loop
+            exp = sh->getExpression(commands,constBooleanStartIndex,&dummyAddToIndex);
+            pass = exp->calculate();
+            while(pass == 1.0){//check if boolen is true for loop
                 startIndex = firstStartIndex;
                 for(list<Command*>::iterator it = commandsList.begin(); it != commandsList.end(); ++it){
                     startIndex += (*it)->execute(commands,startIndex);
                 }
+                exp = sh->getExpression(commands,constBooleanStartIndex,&dummyAddToIndex);
+                pass = exp->calculate();
             }
         }
     }

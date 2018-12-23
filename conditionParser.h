@@ -2,8 +2,9 @@
 #include "printCommand.h"
 #include "connectCommand.h"
 #include "openServerCommand.h"
-#ifndef FIRST_STEP_CONDITIONPARSER_H
-#define FIRST_STEP_CONDITIONPARSER_H
+#include "ShuntingYard.h"
+#ifndef CONDITIONPARSER_H
+#define CONDITIONPARSER_H
 
 /** Condition Parser is parent class for both If and Loop **/
 class conditionParser : public Command {
@@ -19,4 +20,4 @@ public:
     ~conditionParser();
 };
 
-#endif //FIRST_STEP_CONDITIONPARSER_H
+#endif //CONDITIONPARSER_H

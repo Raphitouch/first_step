@@ -18,6 +18,21 @@ string* Lexer::lex() {
     if(file.is_open()){
         //getting number of strings to be lexed:
         while(getline(file,line)){
+            //special check for print:
+            if(line.size() > 5 && line.find("print") != string::npos){
+                string p = line;
+                while(p.size() > 0 && p[0] == ' '){
+                    p = p.substr(1);
+                }
+                if(p.substr(0,5).compare("print") == 0 && p.substr(5).size() > 0 && p[5] == ' '){
+                    index++;
+                    p = p.substr(5);
+                    while(p[0] == ' ')
+                        p = p.substr(1);
+                    index++;
+                    continue;
+                }
+            }
             bool addStr = false;/*indicates if we need to add the next string to the array*/
             string str = "";//string to add
             while(line.size() > 0){//searching for strings(addresses)
@@ -35,7 +50,7 @@ string* Lexer::lex() {
                 else{
                     if(line[0] == '=' || line[0] == '+' || line[0] == '-' ||
                        line[0] == '*' || line[0] == '/' || line[0] == '<' || line[0] == '>' || line[0] == '{' || line[0] == '}'
-                       || line[0] == '!' || line[0] == '(' || line[0] == ')' || line[0] == '%'){
+                       || line[0] == '!' || line[0] == '(' || line[0] == ')'){
                         if(str.compare("") != 0) {//add the recent string.
                             str = "";
                             index++;
@@ -44,10 +59,10 @@ string* Lexer::lex() {
                         // and now we take care of operator string:
                         if((line.substr(1).size() > 0) && (line[0] == '=' || line[0] == '+' || line[0] == '-' ||
                                                            line[0] == '*' || line[0] == '/' || line[0] == '<' || line[0] == '>'
-                                                           || line[0] == '!' || line[0] == '%') &&
+                                                           || line[0] == '!') &&
                            (line[1] == '=' || line[1] == '+' || line[1] == '-' ||
                             line[1] == '*' || line[1] == '/' || line[1] == '<' || line[1] == '>'
-                            || line[1] == '!' || line[1] == '%')){//checking for double operator(like "==" , "++"...
+                            || line[1] == '!')){//checking for double operator(like "==" , "++"...
                             line = line.substr(2);
                             index++;
                         }
@@ -83,7 +98,16 @@ string* Lexer::lex() {
                 string p = line;
                 while(p.size() > 0 && p[0] == ' '){
                     p = p.substr(1);
-                    /*to be continued*/
+                }
+                if(p.substr(0,5).compare("print") == 0 && p.substr(5).size() > 0 && p[5] == ' '){
+                    commands[index] = "print";
+                    index++;
+                    p = p.substr(5);
+                    while(p[0] == ' ')
+                        p = p.substr(1);
+                    commands[index] = p;
+                    index++;
+                    continue;
                 }
             }
             bool addStr = false;/*indicates if we need to add the next string to the array*/
@@ -104,7 +128,7 @@ string* Lexer::lex() {
                 else{
                     if(line[0] == '=' || line[0] == '+' || line[0] == '-' ||
                        line[0] == '*' || line[0] == '/' || line[0] == '<' || line[0] == '>' || line[0] == '{' || line[0] == '}'
-                       || line[0] == '!' || line[0] == '(' || line[0] == ')' || line[0] == '%'){
+                       || line[0] == '!' || line[0] == '(' || line[0] == ')'){
                         if(str.compare("") != 0) {//add the recent string.
                             commands[index] = str;
                             str = "";
@@ -114,10 +138,10 @@ string* Lexer::lex() {
                         // and now we take care of operator string:
                         if((line.substr(1).size() > 0) && (line[0] == '=' || line[0] == '+' || line[0] == '-' ||
                                                            line[0] == '*' || line[0] == '/' || line[0] == '<' || line[0] == '>'
-                                                           || line[0] == '!' || line[0] == '%') &&
+                                                           || line[0] == '!') &&
                            (line[1] == '=' || line[1] == '+' || line[1] == '-' ||
                             line[1] == '*' || line[1] == '/' || line[1] == '<' || line[1] == '>'
-                            || line[1] == '!' || line[1] == '%')){//checking for double operator(like "==" , "++"...
+                            || line[1] == '!')){//checking for double operator(like "==" , "++"...
                             commands[index] = line.substr(0,2);
                             line = line.substr(2);
                             index++;
