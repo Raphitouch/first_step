@@ -78,6 +78,14 @@ string* Lexer::lex() {
         index = 0;
         //putting the commands in the new string array:
         while(getline(file,line)){
+            //special check for print:
+            if(line.size() > 5 && line.find("print") != string::npos){
+                string p = line;
+                while(p.size() > 0 && p[0] == ' '){
+                    p = p.substr(1);
+                    /*to be continued*/
+                }
+            }
             bool addStr = false;/*indicates if we need to add the next string to the array*/
             string str = "";//string to add
             while(line.size() > 0){

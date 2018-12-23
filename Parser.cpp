@@ -13,8 +13,8 @@ Parser::Parser(Lexer* lexer) {
     Command* cc = new connectCommand(&varBind,&symbolTable);
     Command* ecOnly = new equalCommand(&varBind,&symbolTable);
     Command* vcWithOrWithoutec = new varCommand(&varBind,&symbolTable);
-    Command* cpIf = new conditionParser(&symbolTable);
-    Command* cpWhile = new conditionParser(&symbolTable);
+    Command* cpIf = new conditionParser(&symbolTable,&varBind,false);
+    Command* cpWhile = new conditionParser(&symbolTable,&varBind,true);
     Command* pc = new printCommand(&symbolTable);
     //...add Expression
     this->StrToCommand.insert({"openDataServer",osc});

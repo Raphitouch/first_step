@@ -6,13 +6,7 @@
 
 #include "Lexer.h"
 #include <map>
-#include <stdexcept>
-#include "openServerCommand.h"
-#include "varCommand.h"
-#include "printCommand.h"
-#include "loopCommand.h"
-#include "ifCommand.h"
-#include "connectCommand.h"
+#include "conditionParser.h"
 class Parser{
 private:
     int arraySize;//the size of array from the lexer
