@@ -1,16 +1,5 @@
 #include "DataReaderServer.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>
 
-#include <netdb.h>
-#include <unistd.h>
-#include <netinet/in.h>
-
-#include <string.h>
-
-#include <sys/socket.h>
-#include <map>
 
 using namespace std;
 
@@ -64,8 +53,11 @@ DataReaderServer::DataReaderServer() {
 }
 
 
-void DataReaderServer::execution(std::map<std::string, double> *symbolTable,
-                                 std::map<std::string, std::string> *varAddresses) {
+void* DataReaderServer::execution(void* arg) {
+    struct MyParams* params = (struct MyParams*) arg;
+    std::map<std::string, double> *symbolTable = params->symbolTable;
+    std::map<std::string, std::string> *varAddresses = params->varAddress;
+
     int sockfd, newsockfd, portno, clilen;
     char buffer[350];
     string current;
@@ -145,9 +137,10 @@ void DataReaderServer::execution(std::map<std::string, double> *symbolTable,
             j++;
             i++;
         }
+        actualizeData(symbolTable, varAddresses);
         n = read(newsockfd, buffer, 349);
     }
-    actualizeData(symbolTable, varAddresses);
+    delete params;
 }
 
 void DataReaderServer::actualizeData(std::map<std::string, double> *symbolTable,
