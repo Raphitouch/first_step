@@ -8,6 +8,7 @@ class EqualThen : public BinaryExpression{
 public:
     EqualThen(Expression* left,Expression* right);
     double calculate();
+    ~EqualThen(){}
 };
 
 #endif //EQUALTHEN_H

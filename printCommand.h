@@ -9,6 +9,7 @@ private:
 public:
     printCommand(std::map<std::string,double>* symbolTable);
     int execute(std::string* order,int startIndex);
+    ~printCommand(){}
 };
 
 #endif //PRINTCOMMAND_H

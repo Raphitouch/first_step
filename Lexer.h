@@ -15,6 +15,7 @@ public:
     Lexer(std::string fileName);
     std::string* lex();
     int getNum();
+    ~Lexer(){}
 };
 
 #endif //LEXER_H

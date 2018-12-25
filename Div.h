@@ -8,6 +8,7 @@ class Div : public BinaryExpression{
 public:
     Div(Expression* left,Expression* right);
     double calculate();
+    ~Div(){}
 };
 
 #endif //DIV_H

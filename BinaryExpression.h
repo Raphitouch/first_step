@@ -13,6 +13,7 @@ private:
 public:
     BinaryExpression(Expression* left,Expression* right);
     virtual double calculate() = 0;
+    virtual ~BinaryExpression();
 };
 
 #endif //BINARYEXPRESSION_H

@@ -18,21 +18,6 @@ string* Lexer::lex() {
     if(file.is_open()){
         //getting number of strings to be lexed:
         while(getline(file,line)){
-            //special check for print:
-            if(line.size() > 5 && line.find("print") != string::npos){
-                string p = line;
-                while(p.size() > 0 && p[0] == ' '){
-                    p = p.substr(1);
-                }
-                if(p.substr(0,5).compare("print") == 0 && p.substr(5).size() > 0 && p[5] == ' '){
-                    index++;
-                    p = p.substr(5);
-                    while(p[0] == ' ')
-                        p = p.substr(1);
-                    index++;
-                    continue;
-                }
-            }
             bool addStr = false;/*indicates if we need to add the next string to the array*/
             string str = "";//string to add
             while(line.size() > 0){//searching for strings(addresses)
@@ -93,23 +78,6 @@ string* Lexer::lex() {
         index = 0;
         //putting the commands in the new string array:
         while(getline(file,line)){
-            //special check for print:
-            if(line.size() > 5 && line.find("print") != string::npos){
-                string p = line;
-                while(p.size() > 0 && p[0] == ' '){
-                    p = p.substr(1);
-                }
-                if(p.substr(0,5).compare("print") == 0 && p.substr(5).size() > 0 && p[5] == ' '){
-                    commands[index] = "print";
-                    index++;
-                    p = p.substr(5);
-                    while(p[0] == ' ')
-                        p = p.substr(1);
-                    commands[index] = p;
-                    index++;
-                    continue;
-                }
-            }
             bool addStr = false;/*indicates if we need to add the next string to the array*/
             string str = "";//string to add
             while(line.size() > 0){

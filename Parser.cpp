@@ -4,19 +4,18 @@ using namespace std;
 
 /*constructor to set the string array as member
  * and initalaize the map the contains mapping from string(name of command) to actual
- * command as object instance of Command. if there is no such commant the string
- * will be mapped to Null object.*/
+ * command as object instance of Command.*/
 Parser::Parser(Lexer* lexer) {
     this->commands = lexer->lex();
     this->arraySize = lexer->getNum();
     Command* osc = new openServerCommand(&varBind,&symbolTable);
     Command* cc = new connectCommand(&varBind,&symbolTable);
-    Command* ecOnly = new equalCommand(&varBind,&symbolTable);
-    Command* vcWithOrWithoutec = new varCommand(&varBind,&symbolTable);
-    Command* cpIf = new conditionParser(&symbolTable,&varBind,false);
-    Command* cpWhile = new conditionParser(&symbolTable,&varBind,true);
+    Command* ecOnly = new equalCommand(&varBind,&symbolTable,cc);
+    Command* vcWithOrWithoutec = new varCommand(&varBind,&symbolTable,cc);
+    Command* cpIf = new conditionParser(&symbolTable,&varBind,false,cc);
+    Command* cpWhile = new conditionParser(&symbolTable,&varBind,true,cc);
     Command* pc = new printCommand(&symbolTable);
-    //...add Expression
+    Command* exitc = new exitCommand();
     this->StrToCommand.insert({"openDataServer",osc});
     this->StrToCommand.insert({"connect",cc});
     this->StrToCommand.insert({"=",ecOnly});
@@ -24,6 +23,7 @@ Parser::Parser(Lexer* lexer) {
     this->StrToCommand.insert({"if",cpIf});
     this->StrToCommand.insert({"while",cpWhile});
     this->StrToCommand.insert({"print",pc});
+    this->StrToCommand.insert({"exit",exitc});
 }
 /*the parse method will go to the current index(member of Parse class) and will get the current command
  * from the member string array in that index. it will add to the index for the next command acoordingly

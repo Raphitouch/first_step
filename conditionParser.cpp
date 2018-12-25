@@ -1,29 +1,30 @@
 using namespace std;
 #include "conditionParser.h"
 conditionParser::conditionParser(std::map<std::string, double> *symbolTable,
-                                 std::map<std::string, std::string> *varBind, bool isWhile) {
+                                 std::map<std::string, std::string> *varBind, bool isWhile,Command* command) {
     m_symbolTable = symbolTable;
     m_isWhile = isWhile;
     m_varBind = varBind;
+    cc = command;
 }
 int conditionParser::execute(string *commands, int startIndex) {
     int addToIndex = 1;
     startIndex ++;//advance to the boolean expression
     int constBooleanStartIndex = startIndex;//place where boolean starts
     int dummyAddToIndex = addToIndex;
-    1-ShuntingYard* sh = new ShuntingYard(m_symbolTable);//shunting yard object with the current symbolTable
-    2-Expression* exp = sh->getExpression(commands,startIndex,&addToIndex);//we get the expression from the shunting yard object that reads the expression from the array(and updates addToIndex to  how much we need to advance the array)
-    3-double pass = exp->calculate();//gets us the value of the expression object.
+    ShuntingYard* sh = new ShuntingYard(m_symbolTable);//shunting yard object with the current symbolTable
+    Expression* exp = sh->getExpression(commands,startIndex,&addToIndex);//we get the expression from the shunting yard object that reads the expression from the array(and updates addToIndex to  how much we need to advance the array)
+    double pass = exp->calculate();//gets us the value of the expression object.
     startIndex += addToIndex;//gets startIndex one after '{'
     addToIndex ++;//represnting number of addes to get one after '{'
     int firstStartIndex = startIndex;//for while loop
     if(pass == 1.0){
         /*making list of commands until '}'*/
         //making commands and executing once. will be executed more if the boolean in while keep equaling true.
-        Command* c;
         string current = commands[startIndex];
         //first iteration:
         while(current.compare("}") != 0){
+            Command* c;
             if(current.compare("openDataServer") == 0){
                 c = new openServerCommand(m_varBind,m_symbolTable);
             }
@@ -31,13 +32,16 @@ int conditionParser::execute(string *commands, int startIndex) {
                 c = new connectCommand(m_varBind,m_symbolTable);
             }
             else if(current.compare("var") == 0){
-                c = new varCommand(m_varBind,m_symbolTable);
+                c = new varCommand(m_varBind,m_symbolTable,cc);
+            }
+            else if(current.compare("exit") == 0){
+                c = new exitCommand();
             }
             else if(current.compare("if") == 0){
-                c = new conditionParser(m_symbolTable,m_varBind,false);
+                c = new conditionParser(m_symbolTable,m_varBind,false,cc);
             }
             else if(current.compare("while") == 0){
-                c = new conditionParser(m_symbolTable,m_varBind,true);
+                c = new conditionParser(m_symbolTable,m_varBind,true,cc);
             }
             else if(current.compare("print") == 0){
                 c = new printCommand(m_symbolTable);
@@ -47,7 +51,7 @@ int conditionParser::execute(string *commands, int startIndex) {
                     throw invalid_argument("not a valid command inside the loop!");
                 }
                 else{//its = command
-                    c = new equalCommand(m_varBind,m_symbolTable);
+                    c = new equalCommand(m_varBind,m_symbolTable,cc);
                 }
             }
             commandsList.push_back(c);
@@ -89,6 +93,8 @@ int conditionParser::execute(string *commands, int startIndex) {
         }
         addToIndex ++;//getting after '}'
     }
+    delete exp;
+    delete sh;
     return addToIndex;//return to add to -one after '}'
 }
 conditionParser::~conditionParser() {

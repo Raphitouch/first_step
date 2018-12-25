@@ -24,6 +24,7 @@ private:
 public:
     ShuntingYard(std::map<std::string,double>* symbolTable);
     Expression* getExpression(std::string* commands,int startIndex,int* addToIndex);
+    ~ShuntingYard(){}
 };
 
 #endif SHUNTINGYARD_H

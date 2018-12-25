@@ -7,6 +7,7 @@ class SmallerThen : public BinaryExpression{
 public:
     SmallerThen(Expression* left,Expression* right);
     double calculate();
+    ~SmallerThen(){}
 };
 
 #endif //SMALLTHEN_H

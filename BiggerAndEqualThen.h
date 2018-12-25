@@ -7,6 +7,7 @@ class BiggerAndEqualThen : public BinaryExpression{
 public:
     BiggerAndEqualThen(Expression* left,Expression* right);
     double calculate();
+    ~BiggerAndEqualThen(){}
 };
 
 #endif //BIGGERANDEQUALTHEN_H

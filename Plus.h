@@ -8,6 +8,7 @@ class Plus : public BinaryExpression{
 public:
     Plus(Expression* left,Expression* right);
     double calculate();
+    ~Plus(){}
 };
 
 #endif //PLUS_H

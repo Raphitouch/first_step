@@ -10,6 +10,7 @@ private:
 public:
     double calculate();
     Number(double number);
+    ~Number(){}
 };
 
 #endif //NUMBER_H
