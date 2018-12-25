@@ -1,0 +1,22 @@
+
+#ifndef FIRST_STEP_VARCOMMAND_H
+#define FIRST_STEP_VARCOMMAND_H
+
+#include "Command.h"
+
+/** For command var we call to this class **/
+/** This class will create a new hash option in the map symbolTable from parser. From string it will gate the variable
+ * name that user ask for, and then will put in there value 0. The equal command will then bind the value with his
+ * address in simulator **/
+class varCommand : public Command {
+    std::map<std::string, double> *symbolTable;
+    std::map<std::string,std::string> *varAddresses;
+
+public:
+    varCommand(std::map<std::string, double> *symbolTable, std::map<std::string,std::string> *varAddresses);
+    virtual int execute(std::string* commands,int startIndex);
+    virtual ~varCommand(){}
+};
+
+
+#endif //FIRST_STEP_VARCOMMAND_H

@@ -1,0 +1,11 @@
+
+#ifndef FIRST_STEP_EQUALCOMMAND_H
+#define FIRST_STEP_EQUALCOMMAND_H
+
+
+class equalCommand {
+
+};
+
+
+#endif //FIRST_STEP_EQUALCOMMAND_H
