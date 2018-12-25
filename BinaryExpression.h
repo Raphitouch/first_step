@@ -7,10 +7,12 @@
 
 class BinaryExpression : public Expression{
 private:
-    Expression* left;
-    Expression* right;
+    //expressions from both sides of the operator
+    Expression* m_left;
+    Expression* m_right;
 public:
-    double calculate();
+    BinaryExpression(Expression* left,Expression* right);
+    virtual double calculate() = 0;
 };
 
 #endif //BINARYEXPRESSION_H

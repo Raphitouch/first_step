@@ -14,6 +14,9 @@
 #include "NotEqualThen.h"
 #include "BiggerThen.h"
 #include "SmallerThen.h"
+/**this class will implement shunting yard algorithm-that returns the expression ordered
+ * for the build of the expression object that implements the math calculation needed.
+ * the expression object will be returned to be used for calculations.*/
 class ShuntingYard{
 private:
     std::map<std::string,double>* m_symbolTable;//all the varibales with their values; 0 for default(without set)

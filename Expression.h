@@ -4,14 +4,10 @@
 
 #include <string>
 
-/** */
+/** interface for calculate command of long math calculation*/
 class Expression{
-private:
-    int isNumber = 0;
-    double number;
+
 public:
-    int getIsNumber(){return isNumber;}
-    double getNumber(){return number;}
     virtual double calculate() = 0;
 };
 
