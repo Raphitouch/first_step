@@ -1,8 +1,6 @@
 using namespace std;
 #include "BinaryExpression.h"
-double BinaryExpression::calculate() {
-    if (getIsNumber() == 1) {
-        return getNumber();
-    }
-
+BinaryExpression::BinaryExpression(Expression *left, Expression *right) {
+    m_left = left;
+    m_right = right;
 }

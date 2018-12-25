@@ -1,4 +1,7 @@
 #include "Number.h"
-Number::Number(double numb) : number(numb),isNumber(1) {
-
+Number::Number(double number){
+    m_number = number;
+}
+double Number::calculate() {
+    return m_number;
 }

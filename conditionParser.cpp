@@ -11,9 +11,9 @@ int conditionParser::execute(string *commands, int startIndex) {
     startIndex ++;//advance to the boolean expression
     int constBooleanStartIndex = startIndex;//place where boolean starts
     int dummyAddToIndex = addToIndex;
-    ShuntingYard* sh = new ShuntingYard(m_symbolTable);
-    Expression* exp = sh->getExpression(commands,startIndex,&addToIndex);
-    double pass = exp->calculate();
+    1-ShuntingYard* sh = new ShuntingYard(m_symbolTable);//shunting yard object with the current symbolTable
+    2-Expression* exp = sh->getExpression(commands,startIndex,&addToIndex);//we get the expression from the shunting yard object that reads the expression from the array(and updates addToIndex to  how much we need to advance the array)
+    3-double pass = exp->calculate();//gets us the value of the expression object.
     startIndex += addToIndex;//gets startIndex one after '{'
     addToIndex ++;//represnting number of addes to get one after '{'
     int firstStartIndex = startIndex;//for while loop

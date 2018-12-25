@@ -6,7 +6,9 @@
 #ifndef CONDITIONPARSER_H
 #define CONDITIONPARSER_H
 
-/** Condition Parser is parent class for both If and Loop **/
+/** Condition Parser parses the command with {} (while or if), checks the boolean
+ * if its true:run one time the loop/else finish. (done if boolean), if we had while loop (more then if case)
+ * we will have parameter of it true by the constructor; if it is while, we keep checking the boolean and iterate again if its true.**/
 class conditionParser : public Command {
 private:
     std::map<std::string,double>* m_symbolTable;//all the varibales with their values; 0 for default(without set)

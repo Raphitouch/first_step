@@ -5,7 +5,9 @@
 
 #include "BinaryExpression.h"
 class EqualThen : public BinaryExpression{
-
+public:
+    EqualThen(Expression* left,Expression* right);
+    double calculate();
 };
 
 #endif //EQUALTHEN_H
