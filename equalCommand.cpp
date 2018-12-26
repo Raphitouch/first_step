@@ -36,6 +36,7 @@ int equalCommand::regularEqual(std::string *commands, int startIndex) {
     double pass = exp->calculate();//gets us the value of the expression object.
     delete exp;
     delete sh;
+    (*varAddresses).erase(commands[startIndex+1]);
     (*symbolTable)[commands[startIndex-1]] = pass;
     return addToIndex;
 }
