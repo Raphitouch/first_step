@@ -46,8 +46,8 @@ DataReaderServer::DataReaderServer() {
     insertOrder.push_back("/controls/flight/rudder");
     dataReceived["/controls/flight/flaps"] = 0;
     insertOrder.push_back("/controls/flight/flaps");
-    dataReceived["/controls/engines/engine/throttle"] = 0;
-    insertOrder.push_back("/controls/engines/engine/throttle");
+    dataReceived["/controls/engines/current-engine/throttle"] = 0;
+    insertOrder.push_back("/controls/engines/current-engine/throttle");
     dataReceived["/engines/engine/rpm"] = 0;
     insertOrder.push_back("/engines/engine/rpm");
 }
