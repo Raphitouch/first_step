@@ -68,8 +68,6 @@ void DataReaderServer::execution(std::map<std::string, double> *symbolTable,
     if (sockfd < 0) {
         perror("ERROR opening socket");
         exit(1);
-    } else {
-        cout << "Socket !" << endl;
     }
 
     /* Initialize socket structure */
@@ -84,8 +82,6 @@ void DataReaderServer::execution(std::map<std::string, double> *symbolTable,
     if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
         perror("ERROR on binding");
         exit(1);
-    } else {
-        cout << "Binded !" << endl;
     }
 
     /* Now start listening for the clients, here process will
@@ -101,8 +97,6 @@ void DataReaderServer::execution(std::map<std::string, double> *symbolTable,
     if (newsockfd < 0) {
         perror("ERROR on accept");
         exit(1);
-    } else {
-        cout << "Accepted !" << endl;
     }
 
     /* If connection is established then start communicating */
