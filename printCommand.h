@@ -1,7 +1,10 @@
+#include <iostream>
 #include "Command.h"
+#include "ShuntingYard.h"
 
 #ifndef PRINTCOMMAND_H
 #define PRINTCOMMAND_H
+
 /**the print command:*/
 class printCommand : public Command {
 private:
