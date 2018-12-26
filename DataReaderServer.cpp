@@ -46,18 +46,15 @@ DataReaderServer::DataReaderServer() {
     insertOrder.push_back("/controls/flight/rudder");
     dataReceived["/controls/flight/flaps"] = 0;
     insertOrder.push_back("/controls/flight/flaps");
-    dataReceived["/controls/engines/current-engine/throttle"] = 0;
-    insertOrder.push_back("/controls/engines/current-engine/throttle");
+    dataReceived["/controls/engines/engine/throttle"] = 0;
+    insertOrder.push_back("/controls/engines/engine/throttle");
     dataReceived["/engines/engine/rpm"] = 0;
     insertOrder.push_back("/engines/engine/rpm");
 }
 
 
-void* DataReaderServer::execution(void* arg) {
-    struct MyParams* params = (struct MyParams*) arg;
-    std::map<std::string, double> *symbolTable = params->symbolTable;
-    std::map<std::string, std::string> *varAddresses = params->varAddress;
-
+void DataReaderServer::execution(std::map<std::string, double> *symbolTable,
+                                 std::map<std::string, std::string> *varAddresses,int port) {
     int sockfd, newsockfd, portno, clilen;
     char buffer[350];
     string current;
@@ -77,7 +74,7 @@ void* DataReaderServer::execution(void* arg) {
 
     /* Initialize socket structure */
     bzero((char *) &serv_addr, sizeof(serv_addr));
-    portno = 5400;
+    portno = port;
 
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
@@ -140,7 +137,6 @@ void* DataReaderServer::execution(void* arg) {
         actualizeData(symbolTable, varAddresses);
         n = read(newsockfd, buffer, 349);
     }
-    delete params;
 }
 
 void DataReaderServer::actualizeData(std::map<std::string, double> *symbolTable,

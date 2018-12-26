@@ -1,17 +1,16 @@
 #include "openServerCommand.h"
 
+using namespace std;
+
 openServerCommand::openServerCommand(std::map<std::string, double> *symbolTable,
                                      std::map<std::string, std::string> *varAddresses) : symbolTable(symbolTable),
-                                     varAddresses(varAddresses){
+                                                                                         varAddresses(varAddresses){
+    data = new DataReaderServer();
 }
 
-int openServerCommand::execute(std::string *order, int index) {
-    DataReaderServer data;
-    struct MyParams* params = new MyParams();
-    params->varAddress = this->varAddresses;
-    params->symbolTable = this->symbolTable;
-    pthread_t trid;
-    pthread_start(&trid, nullptr, (data.execution), params);
+int openServerCommand::execute(std::string order[], int index) {
 
+    thread thread1(&DataReaderServer::execution, data, symbolTable, varAddresses, stoi(order[index+1]));
+    thread1.detach();
     return 3;
 }

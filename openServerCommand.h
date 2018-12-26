@@ -1,4 +1,4 @@
-#include <pthread.h>
+#include <thread>
 #include <chrono>
 #include "Command.h"
 #include "DataReaderServer.h"
@@ -14,10 +14,14 @@
 class openServerCommand : public Command {
     std::map<std::string, double> *symbolTable;
     std::map<std::string,std::string> *varAddresses;
+    DataReaderServer* data;
 
 public:
     openServerCommand(std::map<std::string, double> *symbolTable, std::map<std::string,std::string> *varAddresses);
     virtual int execute(std::string order[], int index);
+    virtual ~openServerCommand(){
+        delete data;
+    }
 };
 
 #endif //FIRST_STEP_OPENSERVERCOMMAND_H
