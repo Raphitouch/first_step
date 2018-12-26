@@ -19,8 +19,10 @@
  * the expression object will be returned to be used for calculations.*/
 class ShuntingYard{
 private:
+    int operatorsArraySize;
     std::map<std::string,double>* m_symbolTable;//all the varibales with their values; 0 for default(without set)
-    list<std::string> ShuntingYardAlgorithm(std::string* commands,int startIndex,int* addToIndex);
+    std::string* ShuntingYardAlgorithm(std::string* commands,int startIndex,int* addToIndex);
+    Expression* getExpressionHelper(std::string* operators);
 public:
     ShuntingYard(std::map<std::string,double>* symbolTable);
     Expression* getExpression(std::string* commands,int startIndex,int* addToIndex);

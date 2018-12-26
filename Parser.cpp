@@ -16,6 +16,7 @@ Parser::Parser(Lexer* lexer) {
     Command* cpWhile = new conditionParser(&symbolTable,&varBind,true,cc);
     Command* pc = new printCommand(&symbolTable);
     Command* exitc = new exitCommand();
+    Command* sl = new sleepCommand();
     this->StrToCommand.insert({"openDataServer",osc});
     this->StrToCommand.insert({"connect",cc});
     this->StrToCommand.insert({"=",ecOnly});
@@ -24,13 +25,14 @@ Parser::Parser(Lexer* lexer) {
     this->StrToCommand.insert({"while",cpWhile});
     this->StrToCommand.insert({"print",pc});
     this->StrToCommand.insert({"exit",exitc});
+    this->StrToCommand.insert({"sleep",sl});
 }
 /*the parse method will go to the current index(member of Parse class) and will get the current command
  * from the member string array in that index. it will add to the index for the next command acoordingly
  * we get the adding to the index from the execution command that will be invoked.
  * if the command is not valid(object is null we will throw exception).*/
 void Parser::parse() {
-    while(this->index < this->commands->size()){//check for commands:
+    while(this->index < this->arraySize){//check for commands:
         string str = this->commands[this->index];
         map<string,Command*>::iterator it;
         it = this->StrToCommand.find(str);

@@ -43,6 +43,9 @@ int conditionParser::execute(string *commands, int startIndex) {
             else if(current.compare("while") == 0){
                 c = new conditionParser(m_symbolTable,m_varBind,true,cc);
             }
+            else if(current.compare("sleep") == 0){
+                c = new sleepCommand();
+            }
             else if(current.compare("print") == 0){
                 c = new printCommand(m_symbolTable);
             }
