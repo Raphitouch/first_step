@@ -17,7 +17,7 @@ int printCommand::execute(std::string *order, int startIndex) {
     else {
         int addToIndex = 1;
         ShuntingYard* sh = new ShuntingYard(m_symbolTable);//shunting yard object with the current symbolTable
-        Expression* exp = sh->getExpression(commands,startIndex,&addToIndex);//we get the expression from the shunting yard object that reads the expression from the array(and updates addToIndex to  how much we need to advance the array)
+        Expression* exp = sh->getExpression(commands,startIndex+1,&addToIndex);//we get the expression from the shunting yard object that reads the expression from the array(and updates addToIndex to  how much we need to advance the array)
         double pass = exp->calculate();//gets us the value of the expression object.
         delete exp;
         delete sh;
