@@ -10,8 +10,8 @@ Parser::Parser(Lexer* lexer) {
     this->arraySize = lexer->getNum();
     Command* osc = new openServerCommand(&varBind,&symbolTable, m);
     Command* cc = new connectCommand(&varBind,&symbolTable, m);
-    Command* ecOnly = new equalCommand(&varBind,&symbolTable);
-    Command* vcWithOrWithoutec = new varCommand(&varBind,&symbolTable);
+    Command* ecOnly = new equalCommand(&varBind,&symbolTable, cc);
+    Command* vcWithOrWithoutec = new varCommand(&varBind,&symbolTable, cc);
     Command* cpIf = new conditionParser(&symbolTable,&varBind,false,cc);
     Command* cpWhile = new conditionParser(&symbolTable,&varBind,true,cc);
     Command* pc = new printCommand(&symbolTable);

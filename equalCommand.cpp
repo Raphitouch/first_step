@@ -2,8 +2,9 @@
 
 using namespace std;
 
-equalCommand::equalCommand(std::map<std::string, double> *symbolTable, std::map<std::string, std::string> *varAddresses)
-        : varAddresses(varAddresses), symbolTable(symbolTable) {
+equalCommand::equalCommand(std::map<std::string, double> *symbolTable,
+        std::map<std::string, std::string> *varAddresses, connectCommand* cc))
+        : varAddresses(varAddresses), symbolTable(symbolTable), cc(cc) {
 
 }
 
@@ -36,7 +37,22 @@ int equalCommand::regularEqual(std::string *commands, int startIndex) {
     double pass = exp->calculate();//gets us the value of the expression object.
     delete exp;
     delete sh;
-    (*varAddresses).erase(commands[startIndex+1]);
+    bool bindedToVariable = false;
+    auto itr = (*varAddresses).find(commands[startIdex-1]);
+   // if we find the variable on the left size of map of binded variable, it means it is bind to an another element.
+    if (itr != (*varAddresses).end()){
+        bindedToVariable = true;
+        (*symbolTable)[itr->second] = pass;
+    }
     (*symbolTable)[commands[startIndex-1]] = pass;
+    // if variable is not bind to another variable, we need right now to check if it's bind to an address
+    // if it is, we will ask for connect command to send data to simulator
+    if (!bindedToVariable) {
+        for (auto itr = (*varAddresses).begin(); itr != (*varAddresses).end(); ++itr) {
+            if (itr->second == commands[startIndex-1]) {
+                cc->set(itr->first, pass);
+            }
+        }
+    }
     return addToIndex;
 }
