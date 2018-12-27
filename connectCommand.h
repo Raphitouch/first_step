@@ -1,5 +1,14 @@
 #include "Command.h"
 #include <mutex>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <netdb.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#include <netinet/in.h>
+
+#include <string.h>
 
 #ifndef FIRST_STEP_CONNECTCOMMAND_H
 #define FIRST_STEP_CONNECTCOMMAND_H
@@ -9,13 +18,13 @@
  * we want the simulator to modify.**/
 class connectCommand : public Command {
     std::mutex* m;
-    int port;
+    int portno;
     std::string address;
 
 public:
-    connectCommand(std::string varAddress, double value, std::mutex* m);
-    virtual int execute(std::string order[]);
-    void set(std::string address, double value);
+    connectCommand(std::mutex* m);
+    virtual int execute(std::string order[], int startIndex);
+    void set(std::string setAddress, double value);
 };
 
 #endif //FIRST_STEP_CONNECTCOMMAND_H

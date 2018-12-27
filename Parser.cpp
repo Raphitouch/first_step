@@ -1,5 +1,6 @@
-using namespace std;
+
 #include "Parser.h"
+using namespace std;
 /*implementation for Parser header:*/
 
 /*constructor to set the string array as member
@@ -9,7 +10,7 @@ Parser::Parser(Lexer* lexer) {
     this->commands = lexer->lex();
     this->arraySize = lexer->getNum();
     Command* osc = new openServerCommand(&varBind,&symbolTable, m);
-    Command* cc = new connectCommand(&varBind,&symbolTable, m);
+    Command* cc = new connectCommand(m);
     Command* ecOnly = new equalCommand(&varBind,&symbolTable, cc);
     Command* vcWithOrWithoutec = new varCommand(&varBind,&symbolTable, cc);
     Command* cpIf = new conditionParser(&symbolTable,&varBind,false,cc);
