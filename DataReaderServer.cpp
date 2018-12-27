@@ -138,11 +138,13 @@ void DataReaderServer::execution(std::map<std::string, double> *symbolTable,
 
 void DataReaderServer::actualizeData(std::map<std::string, double> *symbolTable,
                                      std::map<std::string, std::string> *varAddresses) {
-
+    string str = "\"";
     for (auto itr = dataReceived.begin() ; itr != dataReceived.end() ; ++itr) {
-        auto iter = (*varAddresses).find(itr->first);
+        str = str + itr->first + "\"";
+        auto iter = (*varAddresses).find(str);
         if (iter != (*varAddresses).end()) {
             (*symbolTable)[(*varAddresses)[itr->first]] = itr->second;
         }
+        str = "\"";
     }
 }
