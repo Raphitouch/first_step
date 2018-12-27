@@ -12,6 +12,7 @@ int connectCommand::execute(std::string *order, int startIndex) {
 }
 
 void connectCommand::set(std::string setAddress, double value) {
+    m->lock();
     int sockfd, n;
     struct sockaddr_in serv_addr;
     struct hostent *server;
@@ -66,4 +67,5 @@ void connectCommand::set(std::string setAddress, double value) {
         perror("ERROR reading from socket");
         exit(1);
     }
+    m->unlock();
 }
