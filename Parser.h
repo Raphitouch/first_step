@@ -5,12 +5,14 @@
 #define Parser_H
 
 #include "Lexer.h"
+#include <mutex>
 #include <map>
 #include "conditionParser.h"
 class Parser{
 private:
     int arraySize;//the size of array from the lexer
     int index = 0;//start reading from here
+    std::mutex* m;
     std::string* commands;//we get from lexer
     std::map<std::string,double> symbolTable;//all the varibales with their values; 0 for default(without set)
     std::map<std::string,std::string> varBind;//all the bound variables with their address in the simulator

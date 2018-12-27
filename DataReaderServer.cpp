@@ -3,7 +3,7 @@
 
 using namespace std;
 
-DataReaderServer::DataReaderServer() {
+DataReaderServer::DataReaderServer(std::mutex* m) : m(m) {
     dataReceived["/instrumentation/airspeed-indicator/indicated-speed-kt"] = 0;
     insertOrder.push_back("/instrumentation/airspeed-indicator/indicated-speed-kt");
     dataReceived["/instrumentation/altimeter/indicated-altitude-ft"] = 0;
@@ -102,9 +102,11 @@ void DataReaderServer::execution(std::map<std::string, double> *symbolTable,
     /* If connection is established then start communicating */
     bzero(buffer, 350);
     n = read(newsockfd, buffer, 349);
+    sleep(15000);
     int j = 0;
     int i = 0;
     while (n >= 0) {
+        m->lock();
         if (n < 0) {
             perror("ERROR reading from socket");
             exit(1);
@@ -128,6 +130,7 @@ void DataReaderServer::execution(std::map<std::string, double> *symbolTable,
             j++;
             i++;
         }
+        m->unlock();
         actualizeData(symbolTable, varAddresses);
         n = read(newsockfd, buffer, 349);
     }

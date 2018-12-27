@@ -13,15 +13,13 @@
 class varCommand : public Command {
     std::map<std::string, double> *symbolTable;
     std::map<std::string,std::string> *varAddresses;
-    connectCommand* cc;
     equalCommand* equal; // Equal command we will call if we meet an equal
 
     int executeWithEqual(std::string* commands,int startIndex); // Execution with equal
     int executeWithoutEqual(std::string* commands,int startIndex); //Execution without equal
 
 public:
-    varCommand(std::map<std::string, double> *symbolTable, std::map<std::string,std::string> *varAddresses,
-            connectCommand* cc);
+    varCommand(std::map<std::string, double> *symbolTable, std::map<std::string,std::string> *varAddresses);
     virtual int execute(std::string* commands,int startIndex);
     virtual ~varCommand(){
         delete equal;

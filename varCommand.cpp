@@ -2,8 +2,8 @@
 using namespace std;
 
 varCommand::varCommand(std::map<std::string, double> *symbolTable, std::map<std::string, std::string> *varAddresses,
-                       connectCommand *cc) : varAddresses(varAddresses), symbolTable(symbolTable), cc(cc){
-    equal = new equalCommand(symbolTable, varAddresses, cc);
+                       connectCommand *cc) : varAddresses(varAddresses), symbolTable(symbolTable) {
+    equal = new equalCommand(symbolTable, varAddresses);
 }
 
 // This function check if there is an equal after variable, and execute the adequat function.
