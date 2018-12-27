@@ -20,7 +20,7 @@ int equalCommand::bindCommand(std::string *commands, int startIndex) {
     string str = (commands[startIndex+2]);
     // in case that the first character is " we need to bind the variable with an addresse
     if (str[0] == '"'){
-        (*varAddresses)[commands[startIndex-1]] = commands[startIndex+2];
+        (*varAddresses)[commands[startIndex+2]] = commands[startIndex-1];
     } else { // in this case, the bind is with an another variable
         (*varAddresses)[commands[startIndex+2]] = commands[startIndex-1];
         (*varAddresses)[commands[startIndex-1]] = commands[startIndex+2];

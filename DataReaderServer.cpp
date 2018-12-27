@@ -136,8 +136,10 @@ void DataReaderServer::execution(std::map<std::string, double> *symbolTable,
 void DataReaderServer::actualizeData(std::map<std::string, double> *symbolTable,
                                      std::map<std::string, std::string> *varAddresses) {
 
-    map<string, double>::iterator itr;
-    for (itr = (*symbolTable).begin() ; itr != (*symbolTable).end() ; ++itr) {
-        itr->second = dataReceived[(*varAddresses)[itr->first]];
+    for (auto itr = dataReceived.begin() ; itr != dataReceived.end() ; ++itr) {
+        auto iter = (*varAddresses).find(itr->first);
+        if (iter != (*varAddresses).end()) {
+            (*symbolTable)[(*varAddresses)[itr->first]] = itr->second;
+        }
     }
 }
