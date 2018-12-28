@@ -3,9 +3,33 @@ using namespace std;
 /* will get the string list of operator ordered by the shunting yard algorithm
  * will ***add*** to addToIndex parameter how much we need to advance*/
 string* ShuntingYard::ShuntingYardAlgorithm(string *commands, int startIndex, int *addToIndex) {
-    //raphael do here:
+    stack<string> oper;
+    int j = 0;
+    while (!iscommand(commands[startIndex + j + 1])) {
+        j++;
+    }
+    if (commands[startIndex + j + 1] == "="){
+        j--;
+    }
+    addToIndex = j;
+    string operators[j+1];
+    for (int i = 0 ; i < j ; i++) {
+
+    }
+
     string* arr; //to return. build like this: arr = new[parameter_size];
 }
+
+// function that will check if current character is an operator
+bool Shunting_yard::isoperator(string str){
+    return c == "+" || c == "-" || c == "*" || c == "/";
+}
+// function that will check if current character is a command, which mean that shunting yard needs to stop
+bool Shunting_yard::iscommand(string str){
+    return c == "var" || c == "openDataServer" || c == "connect" || c == "if" || c == "while" || c = "print" ||
+            c = "exit" || c = "sleep" || c == "=";
+}
+
 Expression* ShuntingYard::getExpressionHelper(string *operators) {
     Expression* rtr;
     Expression* left;

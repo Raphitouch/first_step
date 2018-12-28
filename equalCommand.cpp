@@ -31,7 +31,7 @@ int equalCommand::bindCommand(std::string *commands, int startIndex) {
 }
 
 int equalCommand::regularEqual(std::string *commands, int startIndex) {
-    int addToIndex = 1;
+    int addToIndex = 0;
     ShuntingYard* sh = new ShuntingYard(m_symbolTable);//shunting yard object with the current symbolTable
     Expression* exp = sh->getExpression(commands,startIndex+1,&addToIndex);//we get the expression from the shunting yard object that reads the expression from the array(and updates addToIndex to  how much we need to advance the array)
     double pass = exp->calculate();//gets us the value of the expression object.
@@ -54,5 +54,5 @@ int equalCommand::regularEqual(std::string *commands, int startIndex) {
             }
         }
     }
-    return addToIndex;
+    return addToIndex+1;
 }

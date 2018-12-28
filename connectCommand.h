@@ -25,6 +25,7 @@ public:
     connectCommand(std::mutex* m);
     virtual int execute(std::string order[], int startIndex);
     void set(std::string setAddress, double value);
+    virtual ~connectCommand() {}
 };
 
 #endif //FIRST_STEP_CONNECTCOMMAND_H
