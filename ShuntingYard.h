@@ -6,7 +6,8 @@
 #include <list>
 #include <cstdio>
 #include <vector>
-
+#include <stack>
+#include <map>
 #include "Plus.h"
 #include "Minus.h"
 #include "Mul.h"
@@ -24,10 +25,11 @@ class ShuntingYard{
 private:
     int operatorsArraySize;
     std::map<std::string,double>* m_symbolTable;//all the varibales with their values; 0 for default(without set)
-    std::string* ShuntingYardAlgorithm(std::string* commands,int startIndex,int* addToIndex);
-    Expression* getExpressionHelper(std::string* operators);
-    bool isoperator(char c);
-    bool iscommand(char c);
+    std::map<std::string,int> order;
+    std::string* operators;
+
+    bool isoperator(std::string str);
+    bool iscommand(std::string str);
 public:
     ShuntingYard(std::map<std::string,double>* symbolTable);
     Expression* getExpression(std::string* commands,int startIndex,int* addToIndex);

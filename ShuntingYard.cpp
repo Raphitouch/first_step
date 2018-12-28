@@ -1,33 +1,83 @@
 using namespace std;
 #include "ShuntingYard.h"
+// function that will check if current character is an operator
+bool ShuntingYard::isoperator(string str){
+    return str == "+" || str == "-" || str == "*" || str == "/";
+}
+// function that will check if current character is a command, which mean that shunting yard needs to stop
+bool ShuntingYard::iscommand(string str){
+    return str == "var" || str == "openDataServer" || str == "connect" || str == "if" || str == "while" || str == "print"
+           || str == "exit" || str == "sleep" || str == "=";
+}
+
 /* will get the string list of operator ordered by the shunting yard algorithm
  * will ***add*** to addToIndex parameter how much we need to advance*/
 string* ShuntingYard::ShuntingYardAlgorithm(string *commands, int startIndex, int *addToIndex) {
     stack<string> oper;
+    string str;
+    // First we check how long is the expression we want to order
     int j = 0;
-    while (!iscommand(commands[startIndex + j + 1])) {
+    while (!iscommand(commands[startIndex + j + 1]) && (commands[startIndex + j + 1] != "}") &&
+           !(commands[startIndex+j+1].empty())) {
         j++;
     }
     if (commands[startIndex + j + 1] == "="){
         j--;
     }
-    addToIndex = j;
-    string operators[j+1];
-    for (int i = 0 ; i < j ; i++) {
+    (*addToIndex) = j;
+    operators = new string[2*j];
+    int indexOpe = 0;
 
+    // now we have to order the expression
+    for (int i = 0 ; i <= j ; i++) {
+        // In case we have )
+        if (commands[startIndex + i] == ")") {
+            // Pop all operators from stack until we find (
+            while (!(oper.empty())) {
+                str = oper.top();
+                oper.pop();
+                if (str == "(") { break; }
+                else {
+                    operators[indexOpe] = str;
+                    indexOpe++;
+                }
+            }
+        } else if (isoperator(commands[startIndex + i]) || commands[startIndex + i] == "(") {
+            if (commands[startIndex + i] == "-"){
+                if (i == 0 || isoperator(commands[startIndex]) || commands[startIndex] == "(") {
+                    operators[indexOpe] = "0";
+                    indexOpe++;
+                }
+            }
+            if (order[commands[startIndex + i]] == 1) {
+                while (!oper.empty() && order[oper.top()] == 2) {
+                    str = oper.top();
+                    oper.pop();
+                    operators[indexOpe] = str;
+                    indexOpe++;
+                }
+            }
+            oper.push(commands[startIndex + i]);
+        } else {
+            auto itr = (*m_symbolTable).find(commands[startIndex + i]);
+            if (itr != (*m_symbolTable).end()) {
+                operators[indexOpe] = to_string((*m_symbolTable)[commands[startIndex + i]]);
+                indexOpe++;
+            } else {
+                operators[indexOpe] = commands[startIndex + i];
+                indexOpe++;
+            }
+        }
+    }
+    while (!(oper.empty())) {
+        str = oper.top();
+        oper.pop();
+        operators[indexOpe] = str;
+        indexOpe++;
     }
 
-    string* arr; //to return. build like this: arr = new[parameter_size];
-}
-
-// function that will check if current character is an operator
-bool Shunting_yard::isoperator(string str){
-    return c == "+" || c == "-" || c == "*" || c == "/";
-}
-// function that will check if current character is a command, which mean that shunting yard needs to stop
-bool Shunting_yard::iscommand(string str){
-    return c == "var" || c == "openDataServer" || c == "connect" || c == "if" || c == "while" || c = "print" ||
-            c = "exit" || c = "sleep" || c == "=";
+    operatorsArraySize = indexOpe;
+    return operators;
 }
 
 Expression* ShuntingYard::getExpressionHelper(string *operators) {
