@@ -9,9 +9,9 @@ using namespace std;
 Parser::Parser(Lexer* lexer) {
     this->commands = lexer->lex();
     this->arraySize = lexer->getNum();
-    Command* osc = new openServerCommand(&varBind,&symbolTable);
+    Command* osc = new openServerCommand(&symbolTable, &varBind);
     Command* cc = new connectCommand();
-    Command* ecOnly = new equalCommand(&varBind,&symbolTable, cc);
+    Command* ecOnly = new equalCommand(&symbolTable, &varBind, cc);
     Command* vcWithOrWithoutec = new varCommand(&symbolTable, &varBind, cc);
     Command* cpIf = new conditionParser(&symbolTable,&varBind,false,cc);
     Command* cpWhile = new conditionParser(&symbolTable,&varBind,true,cc);

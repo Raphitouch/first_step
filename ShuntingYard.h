@@ -8,6 +8,7 @@
 #include <vector>
 #include <stack>
 #include <map>
+#include "Number.h"
 #include "Plus.h"
 #include "Minus.h"
 #include "Mul.h"
@@ -28,6 +29,7 @@ private:
     std::map<std::string,int> order;
     std::string* operators;
     Expression* getExpressionHelper(std::string *operators);
+    std::string* ShuntingYardAlgorithm(std::string *commands, int startIndex, int *addToIndex);
     bool isoperator(std::string str);
     bool iscommand(std::string str);
 public:

@@ -139,7 +139,7 @@ Expression* ShuntingYard::getExpressionHelper(string *operators) {
     else if(last.compare("!=") == 0){
         right = getExpressionHelper(operators);
         left = getExpressionHelper(operators);
-        rtr = new NotEqualThens(left,right);
+        rtr = new NotEqualThen(left,right);
     }
     else{//case the string is number(we checked all the operators)
         rtr = new Number(stod(last));
