@@ -2,7 +2,7 @@
 using namespace std;
 
 varCommand::varCommand(std::map<std::string, double> *symbolTable, std::map<std::string, std::string> *varAddresses,
-                       connectCommand *cc) : varAddresses(varAddresses), symbolTable(symbolTable), com(com) {
+                       Command *cc) : varAddresses(varAddresses), symbolTable(symbolTable), com(com) {
     equal = new equalCommand(symbolTable, varAddresses, com);
 }
 

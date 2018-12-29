@@ -10,6 +10,7 @@
 /** This class will create a new hash option in the map symbolTable from parser. From string it will gate the variable
  * name that user ask for, and then will put in there value 0. The equal command will then bind the value with his
  * address in simulator **/
+
 class varCommand : public Command {
     std::map<std::string, double> *symbolTable;
     std::map<std::string,std::string> *varAddresses;

@@ -15,8 +15,7 @@ class equalCommand : public Command {
     int regularEqual(std::string* commands,int startIndex);
 
 public :
-    equalCommand(std::map<std::string, double> *symbolTable, std::map<std::string,std::string> *varAddresses,
-            Command* com);
+    equalCommand(std::map<std::string, double> *symbolTable, std::map<std::string,std::string> *varAddresses, Command* com);
     virtual int execute(std::string* commands,int startIndex);
     virtual ~equalCommand(){}
 };

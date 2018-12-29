@@ -3,7 +3,7 @@
 using namespace std;
 
 equalCommand::equalCommand(std::map<std::string, double> *symbolTable,
-        std::map<std::string, std::string> *varAddresses, Command* com))
+        std::map<std::string, std::string> *varAddresses, Command* com)
         : varAddresses(varAddresses), symbolTable(symbolTable) {
     cc = dynamic_cast<connectCommand*>(com);
 }
@@ -20,8 +20,9 @@ int equalCommand::execute(std::string *commands, int startIndex) {
 int equalCommand::bindCommand(std::string *commands, int startIndex) {
     string str = (commands[startIndex+2]);
     // in case that the first character is " we need to bind the variable with an addresse
-    if (str[0] == '"'){
-        (*varAddresses)[commands[startIndex+2]] = commands[startIndex-1];
+    if (str[0] == '"') {
+        (*varAddresses).erase((*varAddresses)[commands[startIndex - 1]]);
+        (*varAddresses)[commands[startIndex + 2]] = commands[startIndex - 1];
     } else { // in this case, the bind is with an another variable
         (*varAddresses)[commands[startIndex+2]] = commands[startIndex-1];
         (*varAddresses)[commands[startIndex-1]] = commands[startIndex+2];
@@ -32,13 +33,13 @@ int equalCommand::bindCommand(std::string *commands, int startIndex) {
 
 int equalCommand::regularEqual(std::string *commands, int startIndex) {
     int addToIndex = 0;
-    ShuntingYard* sh = new ShuntingYard(m_symbolTable);//shunting yard object with the current symbolTable
+    ShuntingYard* sh = new ShuntingYard(symbolTable);//shunting yard object with the current symbolTable
     Expression* exp = sh->getExpression(commands,startIndex+1,&addToIndex);//we get the expression from the shunting yard object that reads the expression from the array(and updates addToIndex to  how much we need to advance the array)
     double pass = exp->calculate();//gets us the value of the expression object.
     delete exp;
     delete sh;
     bool bindedToVariable = false;
-    auto itr = (*varAddresses).find(commands[startIdex-1]);
+    auto itr = (*varAddresses).find(commands[startIndex-1]);
    // if we find the variable on the left size of map of binded variable, it means it is bind to an another element.
     if (itr != (*varAddresses).end()){
         bindedToVariable = true;

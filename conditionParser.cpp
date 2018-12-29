@@ -54,7 +54,7 @@ int conditionParser::execute(string *commands, int startIndex) {
                     throw invalid_argument("not a valid command inside the loop!");
                 }
                 else{//its = command
-                    c = new equalCommand(m_varBind,m_symbolTable,cc);
+                    c = new equalCommand(m_symbolTable, m_varBind, cc);
                 }
             }
             commandsList.push_back(c);
