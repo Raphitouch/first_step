@@ -3,9 +3,9 @@
 using namespace std;
 
 equalCommand::equalCommand(std::map<std::string, double> *symbolTable,
-        std::map<std::string, std::string> *varAddresses, connectCommand* cc))
-        : varAddresses(varAddresses), symbolTable(symbolTable), cc(cc) {
-
+        std::map<std::string, std::string> *varAddresses, Command* com))
+        : varAddresses(varAddresses), symbolTable(symbolTable) {
+    cc = dynamic_cast<connectCommand*>(com);
 }
 
 int equalCommand::execute(std::string *commands, int startIndex) {
