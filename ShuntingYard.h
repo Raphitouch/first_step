@@ -36,4 +36,4 @@ public:
     ~ShuntingYard(){}
 };
 
-#endif SHUNTINGYARD_H
+#endif //SHUNTINGYARD_H

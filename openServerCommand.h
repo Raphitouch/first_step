@@ -16,11 +16,9 @@ class openServerCommand : public Command {
     std::map<std::string, double> *symbolTable;
     std::map<std::string,std::string> *varAddresses;
     DataReaderServer* data;
-    std::mutex* m;
 
 public:
-    openServerCommand(std::map<std::string, double> *symbolTable, std::map<std::string,std::string> *varAddresses,
-            std::mutex* m);
+    openServerCommand(std::map<std::string, double> *symbolTable, std::map<std::string,std::string> *varAddresses);
     virtual int execute(std::string order[], int index);
     virtual ~openServerCommand(){
         delete data;

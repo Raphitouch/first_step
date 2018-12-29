@@ -22,10 +22,9 @@
 class DataReaderServer {
     std::map<std::string, double> dataReceived;
     std::vector<std::string> insertOrder;
-    std::mutex* m;
 
 public:
-    DataReaderServer(std::mutex* m);
+    DataReaderServer();
     void execution (std::map<std::string, double> *symbolTable, std::map<std::string, std::string> *varAddresses,
                     int port);
     void actualizeData(std::map<std::string, double> *symbolTable, std::map<std::string,std::string> *varAddresses);

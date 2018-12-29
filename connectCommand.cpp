@@ -1,7 +1,7 @@
 #include "connectCommand.h"
 using namespace std;
 
-connectCommand::connectCommand(std::mutex *m) : m(m), portno(0), address("0") {
+connectCommand::connectCommand() : portno(0), address("0") {
     
 }
 
@@ -12,7 +12,6 @@ int connectCommand::execute(std::string *order, int startIndex) {
 }
 
 void connectCommand::set(std::string setAddress, double value) {
-    m->lock();
     int sockfd, n;
     struct sockaddr_in serv_addr;
     struct hostent *server;
@@ -49,7 +48,7 @@ void connectCommand::set(std::string setAddress, double value) {
        * will be read by server
     */
 
-    string str = "set " + setAddress.substr(1,(setAddress.length()-2)) + " " + to_string(value);
+    string str = "set " + setAddress.substr(1,(setAddress.length()-2)) + " " + to_string(value) + "\r\n";
 
     /* Send message to the server */
     n = write(sockfd, str.c_str(), str.length());
@@ -67,5 +66,4 @@ void connectCommand::set(std::string setAddress, double value) {
         perror("ERROR reading from socket");
         exit(1);
     }
-    m->unlock();
 }
