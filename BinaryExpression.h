@@ -6,7 +6,7 @@
 #include "Expression.h"
 
 class BinaryExpression : public Expression{
-private:
+protected:
     //expressions from both sides of the operator
     Expression* m_left;
     Expression* m_right;
