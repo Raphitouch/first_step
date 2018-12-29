@@ -11,7 +11,7 @@ private:
     std::map<std::string,double>* m_symbolTable;//all the varibales with their values; 0 for default(without set)
 public:
     printCommand(std::map<std::string,double>* symbolTable);
-    int execute(std::string* order,int startIndex);
+    virtual int execute(std::string* order,int startIndex);
     ~printCommand(){}
 };
 

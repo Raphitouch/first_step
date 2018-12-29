@@ -7,7 +7,7 @@
 #include "Command.h"
 class sleepCommand : public Command{
 public:
-    int execute(std::string* commands,int startIndex);
+    virtual int execute(std::string* commands,int startIndex);
     ~sleepCommand(){}
 };
 

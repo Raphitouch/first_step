@@ -7,7 +7,7 @@
 class EqualThen : public BinaryExpression{
 public:
     EqualThen(Expression* left,Expression* right);
-    double calculate();
+    virtual double calculate();
     ~EqualThen(){}
 };
 

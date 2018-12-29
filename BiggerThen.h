@@ -7,7 +7,7 @@
 class BiggerThen : public BinaryExpression{
 public:
     BiggerThen(Expression* left,Expression* right);
-    double calculate();
+    virtual double calculate();
     ~BiggerThen(){}
 };
 

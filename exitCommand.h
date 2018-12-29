@@ -6,7 +6,7 @@
 #include "Command.h"
 class exitCommand : public Command{
 public:
-    int execute(std::string* commands,int startIndex);
+    virtual int execute(std::string* commands,int startIndex);
     ~exitCommand(){}
 };
 

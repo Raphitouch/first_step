@@ -7,7 +7,7 @@
 class SmallerAndEqualThen : public BinaryExpression{
 public:
     SmallerAndEqualThen(Expression* left,Expression* right);
-    double calculate();
+    virtual double calculate();
     ~SmallerAndEqualThen(){}
 };
 

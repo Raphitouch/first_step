@@ -1,6 +1,13 @@
 #include <thread>
 #include <chrono>
 #include <mutex>
+#include <netdb.h>
+#include <unistd.h>
+#include <netinet/in.h>
+
+#include <string.h>
+
+#include <sys/socket.h>
 #include "Command.h"
 #include "DataReaderServer.h"
 
@@ -16,6 +23,8 @@ class openServerCommand : public Command {
     std::map<std::string, double> *symbolTable;
     std::map<std::string,std::string> *varAddresses;
     DataReaderServer* data;
+
+    void waitingServer(int port);
 
 public:
     openServerCommand(std::map<std::string, double> *symbolTable, std::map<std::string,std::string> *varAddresses);

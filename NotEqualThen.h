@@ -7,7 +7,7 @@
 class NotEqualThen : public BinaryExpression{
 public:
     NotEqualThen(Expression* left,Expression* right);
-    double calculate();
+    virtual double calculate();
     ~NotEqualThen(){}
 };
 

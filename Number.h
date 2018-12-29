@@ -8,7 +8,7 @@ class Number : public Expression{
 private:
     double m_number;
 public:
-    double calculate();
+    virtual double calculate();
     Number(double number);
     ~Number(){}
 };

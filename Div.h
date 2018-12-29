@@ -7,7 +7,7 @@
 class Div : public BinaryExpression{
 public:
     Div(Expression* left,Expression* right);
-    double calculate();
+    virtual double calculate();
     ~Div(){}
 };
 

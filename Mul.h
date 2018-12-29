@@ -7,7 +7,7 @@
 class Mul : public BinaryExpression{
 public:
     Mul(Expression* left,Expression* right);
-    double calculate();
+    virtual double calculate();
     ~Mul(){}
 };
 
