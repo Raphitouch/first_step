@@ -27,7 +27,7 @@ private:
     std::map<std::string,double>* m_symbolTable;//all the varibales with their values; 0 for default(without set)
     std::map<std::string,int> order;
     std::string* operators;
-
+    Expression* getExpressionHelper(std::string *operators);
     bool isoperator(std::string str);
     bool iscommand(std::string str);
 public:
