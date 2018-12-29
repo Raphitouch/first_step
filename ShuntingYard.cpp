@@ -47,6 +47,11 @@ string* ShuntingYard::ShuntingYardAlgorithm(string *commands, int startIndex, in
                 if (i == 0 || isoperator(commands[startIndex]) || commands[startIndex] == "(") {
                     operators[indexOpe] = "0";
                     indexOpe++;
+                    i++;
+                    operators[indexOpe] = commands[startIndex + i];
+                    indexOpe++;
+                    operators[indexOpe] = "-";
+                    indexOpe++;
                 }
             }
             if (order[commands[startIndex + i]] == 1) {
