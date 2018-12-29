@@ -8,6 +8,7 @@
 #include "openServerCommand.h"
 #include "ShuntingYard.h"
 #include "exitCommand.h"
+#include "sleepCommand.h"
 /** Condition Parser parses the command with {} (while or if), checks the boolean
  * if its true:run one time the loop/else finish. (done if boolean), if we had while loop (more then if case)
  * we will have parameter of it true by the constructor; if it is while, we keep checking the boolean and iterate again if its true.**/
