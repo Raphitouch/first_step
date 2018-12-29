@@ -6,7 +6,7 @@ printCommand::printCommand(std::map<std::string, double> *symbolTable) : m_symbo
 
 }
 
-int printCommand::execute(std::string *order, int startIndex) {
+int printCommand::execute(std::string *commands, int startIndex) {
     int addToIndex = 0;
     string str = (order[startIndex+1]);
     // in case that the first character is " we need to print the sentence
