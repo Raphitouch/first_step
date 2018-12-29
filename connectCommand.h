@@ -17,12 +17,11 @@
 /** Connect Command will send to simulator the value we want to modify. It will get the variable address and the value
  * we want the simulator to modify.**/
 class connectCommand : public Command {
-    std::mutex* m;
     int portno;
     std::string address;
 
 public:
-    connectCommand(std::mutex* m);
+    connectCommand();
     virtual int execute(std::string order[], int startIndex);
     void set(std::string setAddress, double value);
     virtual ~connectCommand() {}

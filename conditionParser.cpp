@@ -26,13 +26,13 @@ int conditionParser::execute(string *commands, int startIndex) {
         while(current.compare("}") != 0){
             Command* c;
             if(current.compare("openDataServer") == 0){
-                c = new openServerCommand(m_varBind,m_symbolTable);
+                c = new openServerCommand(m_symbolTable,m_varBind);
             }
             else if(current.compare("connect") == 0){
-                c = new connectCommand(m_varBind,m_symbolTable);
+                c = new connectCommand();
             }
             else if(current.compare("var") == 0){
-                c = new varCommand(m_varBind,m_symbolTable,cc);
+                c = new varCommand(m_symbolTable, m_varBind, cc);
             }
             else if(current.compare("exit") == 0){
                 c = new exitCommand();
