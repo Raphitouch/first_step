@@ -22,8 +22,10 @@ int conditionParser::execute(string *commands, int startIndex) {
         /*making list of commands until '}'*/
         //making commands and executing once. will be executed more if the boolean in while keep equaling true.
         string current = commands[startIndex];
+        
         //first iteration:
         while(current.compare("}") != 0){
+            cout << "CURRENT IN CONDITION " << current << endl;
             Command* c;
             if(current.compare("openDataServer") == 0){
                 c = new openServerCommand(m_symbolTable,m_varBind);
@@ -50,11 +52,12 @@ int conditionParser::execute(string *commands, int startIndex) {
                 c = new printCommand(m_symbolTable);
             }
             else{//if its = command or invalid command
-                if(startIndex +1 >= commands->size() || commands[startIndex +1].compare("=") != 0){
-                    throw invalid_argument("not a valid command inside the loop!");
-                }
-                else{//its = command
+                if (commands[startIndex +1] == "="){
+                    cout << "Equal in condition" << endl;
                     c = new equalCommand(m_symbolTable, m_varBind, cc);
+                } // it's invalid command
+                else if(startIndex +1 >= commands->size()){
+                    throw invalid_argument("not a valid command inside the loop!");
                 }
             }
             commandsList.push_back(c);
@@ -98,6 +101,7 @@ int conditionParser::execute(string *commands, int startIndex) {
     }
     delete exp;
     delete sh;
+    cout << "Exit from while" << endl;
     return addToIndex;//return to add to -one after '}'
 }
 conditionParser::~conditionParser() {

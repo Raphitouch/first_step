@@ -19,6 +19,7 @@
 class connectCommand : public Command {
     int portno;
     std::string address;
+    int sockfd;
 
 public:
     connectCommand();

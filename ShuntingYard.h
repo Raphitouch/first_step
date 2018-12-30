@@ -2,6 +2,7 @@
 #ifndef SHUNTINGYARD_H
 #define SHUNTINGYARD_H
 
+#include <iostream>
 #include <string>
 #include <list>
 #include <cstdio>

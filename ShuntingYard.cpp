@@ -2,7 +2,8 @@ using namespace std;
 #include "ShuntingYard.h"
 // function that will check if current character is an operator
 bool ShuntingYard::isoperator(string str){
-    return str == "+" || str == "-" || str == "*" || str == "/";
+    return str == "+" || str == "-" || str == "*" || str == "/" || str == ">" || str == "<" || str == ">=" ||
+    str == "<=" || str == "==" || str == "!=";
 }
 // function that will check if current character is a command, which mean that shunting yard needs to stop
 bool ShuntingYard::iscommand(string str){
@@ -13,19 +14,24 @@ bool ShuntingYard::iscommand(string str){
 /* will get the string list of operator ordered by the shunting yard algorithm
  * will ***add*** to addToIndex parameter how much we need to advance*/
 string* ShuntingYard::ShuntingYardAlgorithm(string *commands, int startIndex, int *addToIndex) {
+    cout << "SHUNTING" << endl;
     stack<string> oper;
     string str;
     // First we check how long is the expression we want to order
     int j = 0;
-    while (!iscommand(commands[startIndex + j + 1]) && (commands[startIndex + j + 1] != "}") &&
-           !(commands[startIndex+j+1].empty())) {
+    while (!iscommand(commands[startIndex + j + 1]) && (commands[startIndex + j + 1] != "}")
+    && (commands[startIndex + j + 1] != "{") && !(commands[startIndex+j+1].empty())) {
         j++;
     }
     if (commands[startIndex + j + 1] == "="){
         j--;
     }
-    (*addToIndex) = j;
-    operators = new string[2*j];
+    (*addToIndex) += (j+1);
+    if (j == 0 || j == 1){
+        operators = new string[3];
+    }else {
+        operators = new string[2*j];
+    }
     int indexOpe = 0;
 
     // now we have to order the expression
@@ -44,15 +50,43 @@ string* ShuntingYard::ShuntingYardAlgorithm(string *commands, int startIndex, in
             }
         } else if (isoperator(commands[startIndex + i]) || commands[startIndex + i] == "(") {
             if (commands[startIndex + i] == "-"){
-                if (i == 0 || isoperator(commands[startIndex]) || commands[startIndex] == "(") {
+                if (i == 0 || isoperator(commands[startIndex + i -1]) || commands[startIndex+ i -1] == "(") {
                     operators[indexOpe] = "0";
                     indexOpe++;
                     i++;
-                    operators[indexOpe] = commands[startIndex + i];
-                    indexOpe++;
-                    operators[indexOpe] = "-";
+
+                    if ((*m_symbolTable).count(commands[startIndex + i]) == 1) {
+                        cout << "Value with neg before is " << commands[startIndex + i] << " by " << (*m_symbolTable)[commands[startIndex + i]] << endl;
+                        if ((*m_symbolTable)[commands[startIndex + i]] < 0) {
+                            operators[indexOpe] = to_string((-1) * (*m_symbolTable)[commands[startIndex + i]]);
+                            indexOpe++;
+                            operators[indexOpe] = "+";
+                            indexOpe++;
+                        }
+                        else {
+                            operators[indexOpe] = to_string((*m_symbolTable)[commands[startIndex + i]]);
+                            indexOpe++;
+                            operators[indexOpe] = "-";
+                            indexOpe++;
+                        }
+                    }
+                    else {
+                        operators[indexOpe] = commands[startIndex + i];
+                        indexOpe++;
+                        operators[indexOpe] = "-";
+                        indexOpe++;
+                    }
+
+                }
+            }
+            if (order[commands[startIndex + i]] == 3) {
+                while (!oper.empty()) {
+                    str = oper.top();
+                    oper.pop();
+                    operators[indexOpe] = str;
                     indexOpe++;
                 }
+                oper.push(commands[startIndex + i]);
             }
             if (order[commands[startIndex + i]] == 1) {
                 while (!oper.empty() && order[oper.top()] == 2) {
@@ -61,11 +95,16 @@ string* ShuntingYard::ShuntingYardAlgorithm(string *commands, int startIndex, in
                     operators[indexOpe] = str;
                     indexOpe++;
                 }
+                oper.push(commands[startIndex + i]);
             }
-            oper.push(commands[startIndex + i]);
+            if (order[commands[startIndex + i]] == 2 || order[commands[startIndex + i]] == 4) {
+                oper.push(commands[startIndex + i]);
+            }
+
         } else {
-            auto itr = (*m_symbolTable).find(commands[startIndex + i]);
-            if (itr != (*m_symbolTable).end()) {
+            //auto itr = (*m_symbolTable).find(commands[startIndex + i]);
+            if ((*m_symbolTable).count(commands[startIndex + i]) == 1) {
+                cout << "Remplace value  " << commands[startIndex + i] << " by " << (*m_symbolTable)[commands[startIndex + i]] << endl;
                 operators[indexOpe] = to_string((*m_symbolTable)[commands[startIndex + i]]);
                 indexOpe++;
             } else {
@@ -80,8 +119,14 @@ string* ShuntingYard::ShuntingYardAlgorithm(string *commands, int startIndex, in
         operators[indexOpe] = str;
         indexOpe++;
     }
-
     operatorsArraySize = indexOpe;
+
+    cout << "RESULT OF SHUNTING " << endl;
+    cout << "INDEX " << operatorsArraySize << endl;
+    for (int i = 0 ; i < indexOpe ; i++) {
+        cout << operators[i] << " | ";
+    }
+    cout << endl;
     return operators;
 }
 
@@ -213,6 +258,17 @@ Expression * ShuntingYard::getExpression(string *commands, int startIndex, int *
     delete[] operators;
     return rtr;
 }
-ShuntingYard::ShuntingYard(map<string, double> *symbolTable) {
-    m_symbolTable = symbolTable;
+ShuntingYard::ShuntingYard(map<string, double> *symbolTable) : m_symbolTable(symbolTable) {
+
+    order["+"] = 1;
+    order["-"] = 1;
+    order ["*"] = 2;
+    order ["/"] = 2;
+    order["("] = 4;
+    order [">"] = 3;
+    order ["<"] = 3;
+    order [">="] = 3;
+    order ["<="] = 3;
+    order ["=="] = 3;
+    order ["!="] = 3;
 }

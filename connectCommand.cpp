@@ -1,18 +1,15 @@
 #include "connectCommand.h"
+#include <iostream>
 using namespace std;
 
-connectCommand::connectCommand() : portno(0), address("0") {
+connectCommand::connectCommand() : portno(0), address("0"), sockfd(0) {
     
 }
 
 int connectCommand::execute(std::string *order, int startIndex) {
     address = order[startIndex+1];
     portno = stoi(order[startIndex+2]);
-    return 3;
-}
-
-void connectCommand::set(std::string setAddress, double value) {
-    int sockfd, n;
+    int n;
     struct sockaddr_in serv_addr;
     struct hostent *server;
 
@@ -43,6 +40,12 @@ void connectCommand::set(std::string setAddress, double value) {
         perror("ERROR connecting");
         exit(1);
     }
+    return 3;
+}
+
+void connectCommand::set(std::string setAddress, double value) {
+    int n;
+    char buffer[256];
 
     /* Now ask for a message from the user, this message
        * will be read by server

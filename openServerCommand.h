@@ -24,8 +24,6 @@ class openServerCommand : public Command {
     std::map<std::string,std::string> *varAddresses;
     DataReaderServer* data;
 
-    void waitingServer(int port);
-
 public:
     openServerCommand(std::map<std::string, double> *symbolTable, std::map<std::string,std::string> *varAddresses);
     virtual int execute(std::string order[], int index);

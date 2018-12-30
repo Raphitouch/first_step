@@ -2,6 +2,7 @@
 #ifndef FIRST_STEP_VARCOMMAND_H
 #define FIRST_STEP_VARCOMMAND_H
 
+#include <iostream>
 #include "Command.h"
 #include "connectCommand.h"
 #include "equalCommand.h"

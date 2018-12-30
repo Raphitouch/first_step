@@ -1,6 +1,7 @@
 #include "Command.h"
 #include "ShuntingYard.h"
 #include "connectCommand.h"
+#include <iostream>
 
 #ifndef FIRST_STEP_EQUALCOMMAND_H
 #define FIRST_STEP_EQUALCOMMAND_H

@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <mutex>
-
+#include <thread>
 #include <netdb.h>
 #include <unistd.h>
 #include <netinet/in.h>
@@ -22,11 +22,12 @@
 class DataReaderServer {
     std::map<std::string, double> dataReceived;
     std::vector<std::string> insertOrder;
+    int newsockfd;
 
 public:
     DataReaderServer();
     void execution (std::map<std::string, double> *symbolTable, std::map<std::string, std::string> *varAddresses,
-                    int port);
+                    int port, bool* accepted);
     void actualizeData(std::map<std::string, double> *symbolTable, std::map<std::string,std::string> *varAddresses);
 };
 

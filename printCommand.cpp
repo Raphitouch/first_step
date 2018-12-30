@@ -11,7 +11,7 @@ int printCommand::execute(std::string *commands, int startIndex) {
     string str = (commands[startIndex+1]);
     // in case that the first character is " we need to print the sentence
     if (str[0] == '"'){
-        cout << commands[startIndex+1].substr(1, (commands[startIndex+1].length()-2)) << endl;
+        cout << str.substr(1, (commands[startIndex+1].length()-2)) << endl;
         return 2;
     }
     // otherwhile we need to print the value of expression
@@ -23,6 +23,6 @@ int printCommand::execute(std::string *commands, int startIndex) {
         delete exp;
         delete sh;
         cout << pass << endl;
-        return addToIndex+1;
+        return addToIndex;
     }
 }

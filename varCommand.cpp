@@ -24,5 +24,5 @@ int varCommand::executeWithoutEqual(std::string *commands, int startIndex) {
 // This function is called in case we have equal after variable creation. We need in that case to call
 // for the equal command which will give the symbol table the proper value of the variable.
 int varCommand::executeWithEqual(std::string *commands, int startIndex) {
-    return (equal->execute(commands, (startIndex+2)) + 1);
+    return (equal->execute(commands, (startIndex+1)) + 1);
 }
