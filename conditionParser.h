@@ -23,7 +23,7 @@ private:
 public:
     conditionParser(std::map<std::string,double>* symbolTable,std::map<std::string,std::string>* varBind,bool isWhile,Command* command);
     virtual int execute(std::string* commands,int startIndex);
-    ~conditionParser();
+    ~conditionParser(){}
 };
 
 #endif //CONDITIONPARSER_H

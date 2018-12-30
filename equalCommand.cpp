@@ -9,7 +9,6 @@ equalCommand::equalCommand(std::map<std::string, double> *symbolTable,
 }
 
 int equalCommand::execute(std::string *commands, int startIndex) {
-    cout << commands[startIndex] << " EQUAL" << endl;
     // if we need to bind with an address / another variable
     if (commands[startIndex+2] == "bind"){
         return bindCommand(commands, startIndex);
@@ -53,14 +52,11 @@ int equalCommand::regularEqual(std::string *commands, int startIndex) {
     // if variable is not bind to another variable, we need right now to check if it's bind to an address
     // if it is, we will ask for connect command to send data to simulator
     if (!notbinded) {
-        cout << "Connect needed" << endl;
         for (auto itr = (*varAddresses).begin(); itr != (*varAddresses).end(); ++itr) {
             if (itr->second == commands[startIndex]) {
                 cc->set(itr->first, pass);
             }
         }
     }
-
-    cout << "Dans table " << commands[startIndex] << " : " << (*symbolTable)[commands[startIndex]] << endl;
     return addToIndex+1;
 }

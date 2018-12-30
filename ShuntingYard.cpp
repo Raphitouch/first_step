@@ -14,7 +14,6 @@ bool ShuntingYard::iscommand(string str){
 /* will get the string list of operator ordered by the shunting yard algorithm
  * will ***add*** to addToIndex parameter how much we need to advance*/
 string* ShuntingYard::ShuntingYardAlgorithm(string *commands, int startIndex, int *addToIndex) {
-    cout << "SHUNTING" << endl;
     stack<string> oper;
     string str;
     // First we check how long is the expression we want to order
@@ -56,7 +55,6 @@ string* ShuntingYard::ShuntingYardAlgorithm(string *commands, int startIndex, in
                     i++;
 
                     if ((*m_symbolTable).count(commands[startIndex + i]) == 1) {
-                        cout << "Value with neg before is " << commands[startIndex + i] << " by " << (*m_symbolTable)[commands[startIndex + i]] << endl;
                         if ((*m_symbolTable)[commands[startIndex + i]] < 0) {
                             operators[indexOpe] = to_string((-1) * (*m_symbolTable)[commands[startIndex + i]]);
                             indexOpe++;
@@ -104,7 +102,6 @@ string* ShuntingYard::ShuntingYardAlgorithm(string *commands, int startIndex, in
         } else {
             //auto itr = (*m_symbolTable).find(commands[startIndex + i]);
             if ((*m_symbolTable).count(commands[startIndex + i]) == 1) {
-                cout << "Remplace value  " << commands[startIndex + i] << " by " << (*m_symbolTable)[commands[startIndex + i]] << endl;
                 operators[indexOpe] = to_string((*m_symbolTable)[commands[startIndex + i]]);
                 indexOpe++;
             } else {
@@ -121,12 +118,6 @@ string* ShuntingYard::ShuntingYardAlgorithm(string *commands, int startIndex, in
     }
     operatorsArraySize = indexOpe;
 
-    cout << "RESULT OF SHUNTING " << endl;
-    cout << "INDEX " << operatorsArraySize << endl;
-    for (int i = 0 ; i < indexOpe ; i++) {
-        cout << operators[i] << " | ";
-    }
-    cout << endl;
     return operators;
 }
 

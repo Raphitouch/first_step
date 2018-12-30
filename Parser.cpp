@@ -39,14 +39,12 @@ void Parser::parse() {
         it = this->StrToCommand.find(str);
         Command* c;
         if(it != this->StrToCommand.end()){
-            cout << "===== CURRENT COMMAND " << str << endl;
             c = it->second;
             this->index += c->execute(this->commands,this->index);
         }
         else{//check for rest commands: invalid command or = command
             //if(this->index +1 >= this->commands->size() || this->commands[this->index +1] != "=")
             if(this->commands[this->index +1] == "=") {//its = command
-                cout << "CURRENT COMMAND " << "=" << endl;
                 it = this->StrToCommand.find("=");
                 c = it->second;
                 this->index += c->execute(this->commands,this->index);
